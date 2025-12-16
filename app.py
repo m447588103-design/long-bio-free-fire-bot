@@ -1,11 +1,10 @@
 import discord
 from discord.ext import commands
-import aiohttp
 import asyncio
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-
+from aiohttp import web
 load_dotenv()
 
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -47,7 +46,7 @@ def format_region(code: str):
 async def on_ready():
     global session
     if session is None:
-        session = aiohttp.ClientSession()
+        session = .ClientSession()
     print(f"Logged in as {bot.user}")
 
 @bot.command(name="bio")
@@ -107,13 +106,13 @@ async def bio(ctx, access_token: str = None, *, bio: str = None):
         await ctx.send("❌ Unexpected error.", delete_after=6)
 
 async def start_web_server():
-    app = aiohttp.web.Application()
+    app = .web.Application()
     async def handle(request):
-        return aiohttp.web.Response(text="Bot is running ✅")
+        return .web.Response(text="Bot is running ✅")
     app.router.add_get("/", handle)
-    runner = aiohttp.web.AppRunner(app)
+    runner = .web.AppRunner(app)
     await runner.setup()
-    site = aiohttp.web.TCPSite(runner, "0.0.0.0", PORT)
+    site = .web.TCPSite(runner, "0.0.0.0", PORT)
     await site.start()
     print(f"Web server running on port {PORT}")
 
